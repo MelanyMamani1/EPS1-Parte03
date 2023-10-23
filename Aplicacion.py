@@ -1,4 +1,20 @@
-# Definir una lista para almacenar elementos
+import sqlite3
+
+# Conexión a la base de datos o creación si no existe
+conn = sqlite3.connect('Apellidos_almacen.db')
+
+# Creación de la tabla "Producto" si no existe
+cursor = conn.cursor()
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS Producto (
+        idproducto INTEGER PRIMARY KEY,
+        codigo TEXT,
+        nombre TEXT,
+        precio REAL
+    )
+''')
+
+# Lista para almacenar elementos
 elementos = []
 
 while True:
@@ -51,7 +67,10 @@ while True:
         else:
             print("No hay elementos para mostrar.")
     elif opcion == "5":
+        # Salir del programa y cerrar la conexión a la base de datos
         print("Saliendo del programa. ¡Hasta luego!")
+        conn.close()
         break
     else:
         print("Opción no válida. Por favor, seleccione una opción válida (1/2/3/4/5).")
+
